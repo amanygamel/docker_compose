@@ -1,0 +1,51 @@
+version: '3.9'
+services:
+  DRupal:
+    image: drupal:9.5.7
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+    
+    volumes:
+          - drupal_0-data:/var/www/html/modules 
+          - drupal_2-data:/var/www/html/profiles
+          - drupal_3-data:/var/www/html/themes
+          - drupal_4data:/var/www/html/sites
+    restart: always
+       
+           # this takes advantage of the feature in Docker that a new anonymous
+      # volume (which is what we're creating here) will be initialized with the
+      # existing content of the image at the same location
+   
+  db:
+      image: "postgres"
+      ports:
+      - "5432:5432"
+      environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=myPassword
+      - POSTGRES_DB=postgres
+    
+      volumes:
+          - db-data:/var/lib/postgres/data
+      restart: always
+     
+volumes:
+  drupal_0-data:
+  drupal_2-data:
+  drupal_3-data:
+  drupal_4data:
+  db-data: 
+  
+
+
+ 
+ 
+ 
+
+
+    
+     
+    
+
